@@ -26,11 +26,36 @@ const INITIAL_PRODUCTS = [{
     price: 250
 }
     , {
+    name: "bang",
+    id: Math.random(),
+    cantidad: 1,
+    price: 270
+},
+{
+    name: "stockings",
+    id: Math.random(),
+    cantidad: 1,
+    price: 250
+}
+    , {
+    name: "tights",
+    id: Math.random(),
+    cantidad: 1,
+    price: 270
+},
+{
+    name: "hose",
+    id: Math.random(),
+    cantidad: 1,
+    price: 250
+}
+    , {
     name: "chain",
     id: Math.random(),
     cantidad: 1,
     price: 270
-}]
+},
+]
 export const ListOfProducts = () => {
     const [products, setProducts] = useState<ProductList>(INITIAL_PRODUCTS)
     return (

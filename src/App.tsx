@@ -7,7 +7,7 @@ import { ShoppingCartProvider } from './context/ShoppingCartContext'
 function App() {
 
   return (
-    <div className="App">
+    <div className="App bg-stone-900 min-h-screen">
       <ShoppingCartProvider>
         <Navbar />
         <ListOfProducts />

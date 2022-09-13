@@ -7,11 +7,13 @@ export type ContextStates = {
     productsInCart: ProductList;
     addProductToCart: (newProduct: Product) => any;
     totalBill: number;
+    removeProduct: (productByRemove: Product) => void
 }
 type ContextValues = {
     productsInCart: ContextStates["productsInCart"];
     addProductToCart: ContextStates["addProductToCart"];
-    totalBill: ContextStates["totalBill"]
+    totalBill: ContextStates["totalBill"],
+    removeProduct: ContextStates["removeProduct"]
 }
 
 export const ShoppingCartContext = React.createContext<ContextValues | undefined>(undefined)
@@ -23,6 +25,7 @@ export const useShoppingContext = () => {
     }
     return context
 }
+
 
 export function ShoppingCartProvider({ children }: any) {
     const [productsInCart, dispatch] = React.useReducer(shoppingCartReducer, initialState)
@@ -43,12 +46,20 @@ export function ShoppingCartProvider({ children }: any) {
             dispatch({ type: ActionsKind.INCREMENT_STACK, payload: incrementedStack })
         }
     }
-    
+    const removeProduct: ContextStates["removeProduct"] = (productByRemove: Product) => {
+        let productsRemaining = productsInCart.filter((product: Product) => product.id !== productByRemove.id)
+
+        dispatch({ type: ActionsKind.REMOVE_PRODUCT, payload: productByRemove })
+    }
+
+
     return (
         <ShoppingCartContext.Provider value={{
-            productsInCart: productsInCart as ContextStates["productsInCart"],
+            removeProduct: removeProduct as ContextStates["removeProduct"],
             addProductToCart: addProductToCart as ContextStates["addProductToCart"],
-            totalBill: totalBill as ContextStates["totalBill"]
+            productsInCart: productsInCart as ContextStates["productsInCart"],
+            totalBill: totalBill as ContextStates["totalBill"],
+
         }}>
             {children}
         </ShoppingCartContext.Provider>

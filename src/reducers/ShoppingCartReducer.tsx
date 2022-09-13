@@ -7,6 +7,7 @@ type ReducerReturn = Products | any
 export enum ActionsKind {
     ADD_NEW_PRODUCT = "ADD_NEW_PRODUCT",
     INCREMENT_STACK = "INCREMENT-STACK",
+    REMOVE_PRODUCT = "REMOVE_PRODUCT",
 }
 interface ActionsCart {
     type: ActionsKind;
@@ -19,6 +20,9 @@ export default function shoppingCartReducer(state: ReducerState, { payload, type
             return ([...state, payload])
         case ActionsKind.INCREMENT_STACK:
             return [...state]
+        case ActionsKind.REMOVE_PRODUCT:
+            console.log(state, "state")
+            return ([...state.filter(product => product.id !== payload?.id)])
         default:
             return console.error(` this action doesn't exists`)
     }
