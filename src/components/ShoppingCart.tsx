@@ -20,7 +20,7 @@ export const ShoppingCart = () => {
         <div>
             <div
                 onClick={clickOutsideModal}
-                className={` bg-stone-800/40 transition-all ${expandList ? "block" : "hidden scale-0 "}  absolute w-full h-full left-0 top 0 bottom-0`}>
+                className={` bg-stone-800/40 transition-all ${expandList ? "block" : "hidden scale-0 "}  fixed w-full h-full left-0 top 0 bottom-0`}>
             </div>
             <div
                 className='relative'>

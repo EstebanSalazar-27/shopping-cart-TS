@@ -1,7 +1,9 @@
 import * as React from "react"
+import { useNavigate } from "react-router-dom"
 import { ProductList, Product } from "../models/products";
+import { User } from "../models/User";
 import shoppingCartReducer, { ActionsKind } from "../reducers/ShoppingCartReducer";
-
+import { useUserContext } from "./User";
 export const initialState: ProductList = []
 export type ContextStates = {
     productsInCart: ProductList;
@@ -15,7 +17,6 @@ type ContextValues = {
     totalBill: ContextStates["totalBill"],
     removeProduct: ContextStates["removeProduct"]
 }
-
 export const ShoppingCartContext = React.createContext<ContextValues | undefined>(undefined)
 // Use context Validation
 export const useShoppingContext = () => {
@@ -26,32 +27,41 @@ export const useShoppingContext = () => {
     return context
 }
 
-
+const cartInLocalStorage = JSON.parse(localStorage.getItem('cart') || "[]")
 export function ShoppingCartProvider({ children }: any) {
-    const [productsInCart, dispatch] = React.useReducer(shoppingCartReducer, initialState)
+    const [productsInCart, dispatch] = React.useReducer(shoppingCartReducer, cartInLocalStorage)
+    console.log(productsInCart)
+    const Navigate = useNavigate()
+    const { user, setUser } = useUserContext()
     let totalBill = 0
-
     if (productsInCart.length > 0) {
         for (let i = 0; i < productsInCart.length; i++) {
             totalBill = totalBill + productsInCart[i].price * productsInCart[i].cantidad
         }
     }
-
     const addProductToCart = (newProduct: Product) => {
-        const isProductAlreadyAdded = productsInCart.findIndex((product: Product) => product.id == newProduct.id)
-        if (isProductAlreadyAdded === -1) {
-            dispatch({ type: ActionsKind.ADD_NEW_PRODUCT, payload: newProduct })
+        if (user.isVerified) {
+            const isProductAlreadyAdded = productsInCart.findIndex((product: Product) => product.id == newProduct.id)
+            if (isProductAlreadyAdded === -1) {
+                dispatch({ type: ActionsKind.ADD_NEW_PRODUCT, payload: newProduct })
+            } else {
+                let incrementedStack = productsInCart[isProductAlreadyAdded].cantidad += 1
+                dispatch({ type: ActionsKind.INCREMENT_STACK, payload: incrementedStack })
+            }
         } else {
-            let incrementedStack = productsInCart[isProductAlreadyAdded].cantidad += 1
-            dispatch({ type: ActionsKind.INCREMENT_STACK, payload: incrementedStack })
+            Navigate(`/login/user`)
         }
     }
     const removeProduct: ContextStates["removeProduct"] = (productByRemove: Product) => {
-        let productsRemaining = productsInCart.filter((product: Product) => product.id !== productByRemove.id)
-
         dispatch({ type: ActionsKind.REMOVE_PRODUCT, payload: productByRemove })
     }
+    React.useEffect(() => {
+        if (user.isVerified) {
+            localStorage.setItem('cart', JSON.stringify(productsInCart))
+        }
+    }, [user.isVerified, productsInCart])
 
+   
 
     return (
         <ShoppingCartContext.Provider value={{
@@ -59,7 +69,6 @@ export function ShoppingCartProvider({ children }: any) {
             addProductToCart: addProductToCart as ContextStates["addProductToCart"],
             productsInCart: productsInCart as ContextStates["productsInCart"],
             totalBill: totalBill as ContextStates["totalBill"],
-
         }}>
             {children}
         </ShoppingCartContext.Provider>

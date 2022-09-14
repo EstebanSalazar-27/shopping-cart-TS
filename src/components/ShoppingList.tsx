@@ -9,11 +9,8 @@ type ShoppingListProps = {
 }
 
 export const ShoppingList = ({ expandList, productsInCart, totalBill, removeProduct }: ShoppingListProps) => {
-
-
     return (
         <div
-           
             className={`
         z-50 absolute 
         right-4 top-6 w-60 min-h-[300px] max-h-[300px] min-w-[300px]
@@ -52,7 +49,7 @@ export const ShoppingList = ({ expandList, productsInCart, totalBill, removeProd
                 }
                 <tbody>
                     <tr>
-                        <td className='flex absolute bottom-0 p-2 bg-green-500 w-full text-slate-200 font-bold capitalize' colSpan={12}>TOTAL: ${totalBill}</td>
+                        <td className='flex  absolute top-0  p-2 bg-green-500  w-full text-slate-200 font-bold capitalize' colSpan={12}>TOTAL: ${totalBill}</td>
                     </tr>
                 </tbody>
             </table>

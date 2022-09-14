@@ -7,7 +7,7 @@ type ProductProps = {
 }
 export const SingleProduct = ({ product }: ProductProps) => {
     const { addProductToCart, removeProduct } = useShoppingContext()
-    const img = ""
+    const img = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbIVbja2uEy1iFqwNHGvmidYVSs4rz2B-Z9A&usqp=CAU"
 
 
 
