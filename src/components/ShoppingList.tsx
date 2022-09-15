@@ -1,4 +1,3 @@
-import React from 'react'
 import { Product, ProductList } from '../models/products';
 
 type ShoppingListProps = {

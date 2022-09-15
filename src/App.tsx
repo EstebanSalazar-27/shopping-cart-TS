@@ -1,15 +1,11 @@
-
 import './App.css'
 import { Navbar } from './components/Navbar'
-import { ListOfProducts } from './components/ListOfProducts'
 import { ShoppingCartProvider } from './context/ShoppingCartContext'
 import { Route, Routes } from "react-router-dom"
 import { FormUser } from './components/FormUser'
 import UserProvider from './context/User'
 import { Home } from './pages/Home'
-
 function App() {
-
   return (
     <UserProvider>
       <div className="App bg-stone-900 min-h-screen">
@@ -20,7 +16,6 @@ function App() {
             <Route path='/login/user' element={<FormUser />} />
           </Routes>
         </ShoppingCartProvider>
-
       </div>
     </UserProvider>
   )

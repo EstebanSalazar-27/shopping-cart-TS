@@ -3,13 +3,11 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"
 import React, { useState } from 'react'
 import { ShoppingList } from './ShoppingList'
 import { useShoppingContext } from '../context/ShoppingCartContext'
-import { Product } from '../models/products'
+
 
 export const ShoppingCart = () => {
     const [expandList, setExpandList] = useState<boolean>(false)
     const { productsInCart, totalBill, removeProduct } = useShoppingContext()
-
-
     const expandListInCart = () => {
         setExpandList(prevExpandState => !prevExpandState)
     }
@@ -30,7 +28,6 @@ export const ShoppingCart = () => {
                         <FontAwesomeIcon className='text-slate-200' size={'1x'} icon={faShoppingCart} />
                     </button>
                 </div>
-
                 <ShoppingList removeProduct={removeProduct} productsInCart={productsInCart} totalBill={totalBill} expandList={expandList} />
             </div>
         </div>

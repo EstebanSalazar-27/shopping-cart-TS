@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { ContextStates, ShoppingCartContext, useShoppingContext } from '../context/ShoppingCartContext'
+
+import {  useShoppingContext } from '../context/ShoppingCartContext'
 import { Product } from '../models/products'
 
 type ProductProps = {

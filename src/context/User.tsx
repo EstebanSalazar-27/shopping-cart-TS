@@ -1,12 +1,10 @@
 import { createContext, SetStateAction, useContext, useEffect, useState } from "react";
 import { User } from "../models/User";
-
 type ContextValues = {
     user: User,
     setUser: (user: User) => any
 }
 const UserContext = createContext<ContextValues | undefined>(undefined)
-
 export const USER_INITIAL_VALUE = {
     name: "",
     lastName: "",
@@ -25,16 +23,12 @@ export const useUserContext = () => {
 const userInLocal = JSON.parse(localStorage.getItem('user') || '{}')
 export default function UserProvider({ children }: any) {
     const [user, setUser] = useState<User>(userInLocal)
-
-
-
     useEffect(() => {
         if (user.isVerified) {
             localStorage.setItem('user', JSON.stringify(user) || '{}')
         }
 
     }, [user])
-
     useEffect(() => {
         const getUserCartInLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]')
         setUser({
@@ -43,11 +37,6 @@ export default function UserProvider({ children }: any) {
         })
 
     }, [])
-
-
-    console.log(user)
-
-
     return (
         <UserContext.Provider value={{ user: user as ContextValues["user"], setUser }}>
             {children}

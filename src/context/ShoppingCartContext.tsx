@@ -1,7 +1,6 @@
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
 import { ProductList, Product } from "../models/products";
-import { User } from "../models/User";
 import shoppingCartReducer, { ActionsKind } from "../reducers/ShoppingCartReducer";
 import { useUserContext } from "./User";
 export const initialState: ProductList = []
@@ -26,11 +25,9 @@ export const useShoppingContext = () => {
     }
     return context
 }
-
 const cartInLocalStorage = JSON.parse(localStorage.getItem('cart') || "[]")
 export function ShoppingCartProvider({ children }: any) {
     const [productsInCart, dispatch] = React.useReducer(shoppingCartReducer, cartInLocalStorage)
-    console.log(productsInCart)
     const Navigate = useNavigate()
     const { user, setUser } = useUserContext()
     let totalBill = 0
@@ -40,28 +37,27 @@ export function ShoppingCartProvider({ children }: any) {
         }
     }
     const addProductToCart = (newProduct: Product) => {
-        if (user.isVerified) {
-            const isProductAlreadyAdded = productsInCart.findIndex((product: Product) => product.id == newProduct.id)
+        if (!user.isVerified) {
+            Navigate(`/login/user`)
+        } else {
+            const isProductAlreadyAdded = productsInCart.findIndex((product: Product) => product.id == newProduct.id || product.name === newProduct.name)
             if (isProductAlreadyAdded === -1) {
                 dispatch({ type: ActionsKind.ADD_NEW_PRODUCT, payload: newProduct })
-            } else {
-                let incrementedStack = productsInCart[isProductAlreadyAdded].cantidad += 1
-                dispatch({ type: ActionsKind.INCREMENT_STACK, payload: incrementedStack })
             }
-        } else {
-            Navigate(`/login/user`)
+            let incrementedStack = productsInCart[isProductAlreadyAdded].cantidad += 1
+            dispatch({ type: ActionsKind.INCREMENT_STACK, payload: incrementedStack })
         }
     }
     const removeProduct: ContextStates["removeProduct"] = (productByRemove: Product) => {
         dispatch({ type: ActionsKind.REMOVE_PRODUCT, payload: productByRemove })
     }
     React.useEffect(() => {
-        if (user.isVerified) {
-            localStorage.setItem('cart', JSON.stringify(productsInCart))
+        if (!user.isVerified) {
+            localStorage.setItem('cart', JSON.stringify([]))
+            setUser({ ...user, userCart: [] })
         }
+        localStorage.setItem('cart', JSON.stringify(productsInCart))
     }, [user.isVerified, productsInCart])
-
-   
 
     return (
         <ShoppingCartContext.Provider value={{

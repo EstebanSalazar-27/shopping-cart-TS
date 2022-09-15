@@ -2,24 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { USER_INITIAL_VALUE, useUserContext } from '../context/User'
 import { User } from '../models/User'
-
 export const FormUser = () => {
     const [userData, setUserData] = useState<User>(USER_INITIAL_VALUE)
     const navigate = useNavigate()
     const { setUser, user } = useUserContext()
     const [formFillOut, setFormFillOut] = useState<boolean>(false)
-
     function handleChange(e: any) {
         setUserData({
             ...userData,
             [e.target.name]: e.target.value
         })
     }
-
     async function handleSubmit(e: any) {
         e.preventDefault()
-
-        await setUserData({
+      await setUserData({
             ...userData,
             isVerified: true,
             id: Math.random() * 2
@@ -27,12 +23,6 @@ export const FormUser = () => {
         await setFormFillOut(true)
 
     }
-    async function setUserState() {
-
-
-        return user
-    }
-
     useEffect(() => {
         setUser(userData)
     }, [formFillOut])
@@ -41,16 +31,11 @@ export const FormUser = () => {
             localStorage.setItem("user", JSON.stringify(user))
         }
     }, [])
-
     useEffect(() => {
         if (user.isVerified) {
             navigate('/')
         }
     }, [user])
-
-
-
-    console.log(user, 'contexto')
     return (
         <form onSubmit={handleSubmit} className='bg-stone-800 p-2 w-full max-w-[400px] py-4  mx-auto my-auto flex flex-col gap-4'>
             <div className='grid gap-2'>
