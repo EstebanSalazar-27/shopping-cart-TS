@@ -8,7 +8,7 @@ const UserContext = createContext<ContextValues | undefined>(undefined)
 export const USER_INITIAL_VALUE = {
     name: "",
     lastName: "",
-    currency: undefined,
+    currency: 20000,
     id: undefined,
     isVerified: false,
     userCart: []
@@ -27,7 +27,6 @@ export default function UserProvider({ children }: any) {
         if (user.isVerified) {
             localStorage.setItem('user', JSON.stringify(user) || '{}')
         }
-
     }, [user])
     useEffect(() => {
         const getUserCartInLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]')
@@ -35,7 +34,6 @@ export default function UserProvider({ children }: any) {
             ...user,
             userCart: getUserCartInLocalStorage
         })
-
     }, [])
     return (
         <UserContext.Provider value={{ user: user as ContextValues["user"], setUser }}>

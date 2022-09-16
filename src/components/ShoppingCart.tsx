@@ -28,7 +28,7 @@ export const ShoppingCart = () => {
                         <FontAwesomeIcon className='text-slate-200' size={'1x'} icon={faShoppingCart} />
                     </button>
                 </div>
-                <ShoppingList removeProduct={removeProduct} productsInCart={productsInCart} totalBill={totalBill} expandList={expandList} />
+                <ShoppingList removeProduct={removeProduct} productsInCart={productsInCart} setExpandList={setExpandList} totalBill={totalBill} expandList={expandList} />
             </div>
         </div>
 

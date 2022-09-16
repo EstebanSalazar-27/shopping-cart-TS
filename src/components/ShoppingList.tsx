@@ -1,21 +1,39 @@
+import { useEffect, useState } from 'react';
 import { Product, ProductList } from '../models/products';
+import { PaymentModal } from './PaymentModal';
 
 type ShoppingListProps = {
     expandList: boolean;
+    setExpandList: (a: boolean) => any;
     productsInCart: ProductList;
     totalBill: number;
     removeProduct: (productByDelete: Product) => void;
 }
 
-export const ShoppingList = ({ expandList, productsInCart, totalBill, removeProduct }: ShoppingListProps) => {
+
+export const ShoppingList = ({ expandList, setExpandList, productsInCart, totalBill, removeProduct }: ShoppingListProps) => {
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
+
+
+    useEffect(() => {
+        if (expandList === false) {
+            setShowConfirmModal(false)
+        }
+    }, [expandList])
+
     return (
         <div
             className={`
         z-50 absolute 
-        right-4 top-6 w-60 min-h-[300px] max-h-[300px] min-w-[300px]
+        right-4 top-6 w-60 min-h-[300px]  min-w-[300px]
          bg-stone-900 rounded-sm shadow-md scale-0 opacity-0 
          origin-top-right 
-         transition-all duration-200 blur-md ${expandList ? "scale-100 opacity-100 blur-0" : ""} overflow-y-auto `} >
+         transition-all duration-200 blur-md ${expandList ? "scale-100 opacity-100 blur-0" : ""} `} >
+
+            <div className={`min-h-[600px] min-w-[600px] bg-white absolute -left-[700px] ${showConfirmModal ? "scale-100" : 'scale-0'}`}>
+
+            </div>
+            <PaymentModal expandList={expandList} totalBill={totalBill} productsInCart={productsInCart} showConfirmModal={showConfirmModal} />
             <table className=' w-full p-2'>
                 <thead className='bg-stone-800 w-full p-2 h-8  min-w-full'>
                     <tr >
@@ -33,7 +51,6 @@ export const ShoppingList = ({ expandList, productsInCart, totalBill, removeProd
                                 <td className='text-slate-200 font-semibold p-2   text-sm capitalize'>{product.price}</td>
                                 <td onClick={() => removeProduct(product)} className='text-orange-500 cursor-pointer font-semibold p-2   text-sm capitalize '  >Remove</td>
                             </tr>
-
                         </tbody>
                     )
                 })
@@ -48,10 +65,12 @@ export const ShoppingList = ({ expandList, productsInCart, totalBill, removeProd
                 }
                 <tbody>
                     <tr>
-                        <td className='flex  absolute top-0  p-2 bg-green-500  w-full text-slate-200 font-bold capitalize' colSpan={12}>TOTAL: ${totalBill}</td>
+                        <td onClick={() => setShowConfirmModal(!showConfirmModal)} className='flex justify-between  absolute top-0  p-2 bg-sky-500  w-full text-slate-200 font-bold capitalize ' colSpan={12}><td className='bg-sky-600 px-2 rounded-md cursor-pointer hover:bg-white hover:text-sky-600'>Payment</td></td>
+
                     </tr>
                 </tbody>
             </table>
+
         </div>
     )
 }

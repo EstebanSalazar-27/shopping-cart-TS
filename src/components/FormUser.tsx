@@ -15,7 +15,7 @@ export const FormUser = () => {
     }
     async function handleSubmit(e: any) {
         e.preventDefault()
-      await setUserData({
+        await setUserData({
             ...userData,
             isVerified: true,
             id: Math.random() * 2
@@ -41,6 +41,7 @@ export const FormUser = () => {
             <div className='grid gap-2'>
                 <input onChange={handleChange} className='w-full p-1  bg-black/40 text-slate-200' name='name' type="text" placeholder='Name' />
                 <input onChange={handleChange} className='w-full p-1 bg-black/40 text-slate-200' name='lastName' type="text" placeholder='Lastname' />
+
             </div>
 
             <input className='w-full bg-sky-500 py-2 font-bold text-slate-200 hover:bg-sky-600 transition-colors cursor-pointer' type="submit" value="Sign in" />
