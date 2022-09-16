@@ -13,7 +13,10 @@ export const PaymentModal = ({ expandList, showConfirmModal, productsInCart, tot
     return (
         <div className={`min-h-[600px] min-w-[600px]  bg-slate-100 absolute -left-[700px] transition-all shadow-lg   ${showConfirmModal ? "opacity-100 blur-0" : 'opacity-0 blur-lg'}`}>
             <div className='flex flex-col w-full '>
-                <h2 className={` w-full p-2 font-bold text-white capitalize text-center ${handlePurchaseProcess.loading ? 'bg-orange-500' : 'bg-green-500'}`}>{handlePurchaseProcess.loading === true ? "payment in process" : "payment was successful"}</h2>
+
+                {handlePurchaseProcess.loading && <h2 className="font-bold bg-orange-400 text-slate-50 p-2 capitalize text-lg">payment is in process...</h2>}
+                {handlePurchaseProcess.paymentFinished && <h2 className="font-bold bg-green-400 text-slate-50 p-2 capitalize text-lg">payment is done...</h2>}
+
                 <table>
                     <thead>
                         <tr className='w-full bg-sky-600 h-8 text-center '>
