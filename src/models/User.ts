@@ -1,7 +1,7 @@
 
 export type User = {
-    name: string;
-    lastName: string;
+    username: string;
+    password: string;
     id: number | undefined,
     currency: number;
     isVerified: boolean;

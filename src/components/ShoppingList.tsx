@@ -14,7 +14,7 @@ type ShoppingListProps = {
 export const ShoppingList = ({ expandList, setExpandList, productsInCart, totalBill, removeProduct }: ShoppingListProps) => {
     const [showConfirmModal, setShowConfirmModal] = useState(false)
 
-
+    console.log(expandList)
     useEffect(() => {
         if (expandList === false) {
             setShowConfirmModal(false)
@@ -26,14 +26,15 @@ export const ShoppingList = ({ expandList, setExpandList, productsInCart, totalB
             className={`
         z-50 absolute 
         right-4 top-6 w-60 min-h-[300px]  min-w-[300px]
-         bg-stone-900 rounded-sm shadow-md scale-0 opacity-0 
+         bg-stone-900 rounded-sm shadow-md
          origin-top-right 
-         transition-all duration-200 blur-md ${expandList ? "scale-100 opacity-100 blur-0" : ""} `} >
+         transition-all duration-200  ${expandList === true ? "scale-100 opacity-100 blur-0" : "opacity-0  scale-0  blur-md"} `} >
 
-            <div className={`min-h-[600px] min-w-[600px] bg-white absolute -left-[700px] ${showConfirmModal ? "scale-100" : 'scale-0'}`}>
+            <div className={`min-h-[600px] min-w-[600px] absolute -left-[700px] ${showConfirmModal ? "scale-100 opacity-100" : 'scale-0 opacity-0'}`}>
 
             </div>
             <PaymentModal expandList={expandList} totalBill={totalBill} productsInCart={productsInCart} showConfirmModal={showConfirmModal} />
+
             <table className=' w-full p-2'>
                 <thead className='bg-stone-800 w-full p-2 h-8  min-w-full'>
                     <tr >

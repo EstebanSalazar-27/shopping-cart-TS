@@ -6,8 +6,8 @@ type ContextValues = {
 }
 const UserContext = createContext<ContextValues | undefined>(undefined)
 export const USER_INITIAL_VALUE = {
-    name: "",
-    lastName: "",
+    username: "",
+    password: '', 
     currency: 20000,
     id: undefined,
     isVerified: false,
@@ -23,11 +23,22 @@ export const useUserContext = () => {
 const userInLocal = JSON.parse(localStorage.getItem('user') || '{}')
 export default function UserProvider({ children }: any) {
     const [user, setUser] = useState<User>(userInLocal)
+    console.log(user)
     useEffect(() => {
         if (user.isVerified) {
             localStorage.setItem('user', JSON.stringify(user) || '{}')
         }
     }, [user])
+    const getUser = async () => {
+        const response = await fetch('http://localhost:3000/users', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        return response.json()
+    }
     useEffect(() => {
         const getUserCartInLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]')
         setUser({

@@ -2,9 +2,10 @@ import './App.css'
 import { Navbar } from './components/Navbar'
 import { ShoppingCartProvider } from './context/ShoppingCartContext'
 import { Route, Routes } from "react-router-dom"
-import { FormUser } from './components/FormUser'
+import { FormUser } from './components/FormSingIn'
 import UserProvider from './context/User'
 import { Home } from './pages/Home'
+import { Auth } from './pages/Auth'
 function App() {
   return (
     <UserProvider>
@@ -13,7 +14,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/login/user' element={<FormUser />} />
+            <Route path='/auth/user' element={<Auth />} />
           </Routes>
         </ShoppingCartProvider>
       </div>

@@ -1,5 +1,22 @@
 {
-    "users": [
-   
-    ]
+  "users": [
+    {
+      "username": "esteban",
+      "password": "salazar",
+      "currency": 20000,
+      "id": 12.116972005617106,
+      "isVerified": true,
+      "userCart": [],
+      "confirmPassword": "salazar"
+    },
+    {
+      "username": "esteban",
+      "password": "salazar",
+      "currency": 20000,
+      "id": 40.13027420779962,
+      "isVerified": true,
+      "userCart": [],
+      "confirmPassword": "salazar"
+    }
+  ]
 }
