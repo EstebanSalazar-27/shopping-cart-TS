@@ -7,9 +7,10 @@ type ContextValues = {
 const UserContext = createContext<ContextValues | undefined>(undefined)
 export const USER_INITIAL_VALUE = {
     username: "",
-    password: '', 
-    currency: 20000,
-    id: undefined,
+    email: "",
+    password: '',
+    currency: 0,
+    id: 0,
     isVerified: false,
     userCart: []
 }

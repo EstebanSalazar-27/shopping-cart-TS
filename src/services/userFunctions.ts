@@ -11,8 +11,19 @@ export async function postNewUser(url: string, data: User) {
     })
     return response.json()
 }
+
 export const getUser = async (username: string) => {
     const response = await fetch(`http://localhost:3000/users?username=${username}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    return response.json()
+}
+export const getUserData = async (username: string, password: string) => {
+    const response = await fetch(`http://localhost:3000/users?username=${username}&password=${password}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

@@ -80,21 +80,13 @@ export function ShoppingCartProvider({ children }: any) {
                     paymentFinished: true
                 })
             }, 2000);
-            
             dispatch({ type: ActionsKind.CONFIRM_PAYMENT, payload: [] })
-
-
-
-
             console.log('compra exitosa')
         }
-
-
-
     }
     const addProductToCart = (newProduct: Product) => {
         if (!user.isVerified) {
-            Navigate(`/login/user`)
+            Navigate(`/auth/user?request=signin`)
         } else {
             const isProductAlreadyAdded = productsInCart.findIndex((product: Product) => product.id == newProduct.id || product.name === newProduct.name)
             if (isProductAlreadyAdded === -1) {

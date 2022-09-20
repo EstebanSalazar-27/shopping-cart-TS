@@ -2,21 +2,48 @@
   "users": [
     {
       "username": "esteban",
-      "password": "salazar",
+      "email": "estebanenis27@gmail.com",
+      "password": "12312313123",
       "currency": 20000,
-      "id": 12.116972005617106,
+      "id": 28.02435525518827,
       "isVerified": true,
-      "userCart": [],
-      "confirmPassword": "salazar"
+      "userCart": []
     },
     {
-      "username": "esteban",
-      "password": "salazar",
+      "username": "rafael",
+      "email": "estebanenis27@gmail.com",
+      "password": "12121212",
       "currency": 20000,
-      "id": 40.13027420779962,
+      "id": 18.3165434154208,
       "isVerified": true,
-      "userCart": [],
-      "confirmPassword": "salazar"
+      "userCart": []
+    },
+    {
+      "username": "coco",
+      "email": "estebanenis27@gmail.com",
+      "password": "12121212",
+      "currency": 20000,
+      "id": 0.7007047987840348,
+      "isVerified": true,
+      "userCart": []
+    },
+    {
+      "username": "raqueli",
+      "email": "estebanenis27@gmail.com",
+      "password": "123123123",
+      "currency": 20000,
+      "id": 54.16428140596388,
+      "isVerified": true,
+      "userCart": []
+    },
+    {
+      "username": "papa",
+      "email": "estebanenis27@gmail.com",
+      "password": "123123123",
+      "currency": 20000,
+      "id": 89.55808436835805,
+      "isVerified": true,
+      "userCart": []
     }
   ]
 }
