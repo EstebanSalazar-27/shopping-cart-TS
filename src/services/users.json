@@ -41,32 +41,7 @@
       "currency": 0,
       "id": 32.89358090799184,
       "isVerified": true,
-      "userCart": [
-        {
-          "name": "stockings",
-          "id": 0.08322575952385014,
-          "cantidad": 1,
-          "price": 250
-        },
-        {
-          "name": "bang",
-          "id": 0.8635274377779418,
-          "cantidad": 1,
-          "price": 270
-        },
-        {
-          "name": "jacket",
-          "id": 0.5545230881883427,
-          "cantidad": 1,
-          "price": 250
-        },
-        {
-          "name": "shoes",
-          "id": 0.48778296130049736,
-          "cantidad": 1,
-          "price": 220
-        }
-      ]
+      "userCart": []
     }
   ]
 }
