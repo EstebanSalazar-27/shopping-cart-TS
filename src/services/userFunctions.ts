@@ -32,3 +32,14 @@ export const getUserData = async (username: string, password: string) => {
 
     return response.json()
 }
+export const sendProductsToUserCart = (userID: any, productsInCart: any) => {
+    fetch(`http://localhost:3000/users/${userID}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userCart: productsInCart
+        })
+    })
+}

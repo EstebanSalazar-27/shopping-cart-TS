@@ -2,7 +2,6 @@ import './App.css'
 import { Navbar } from './components/Navbar'
 import { ShoppingCartProvider } from './context/ShoppingCartContext'
 import { Route, Routes } from "react-router-dom"
-import { FormUser } from './components/FormSignIn'
 import UserProvider from './context/User'
 import { Home } from './pages/Home'
 import { Auth } from './pages/Auth'

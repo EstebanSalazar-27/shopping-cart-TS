@@ -3,7 +3,8 @@ import * as React from "react"
 import { useNavigate } from "react-router-dom"
 import { ProductList, Product } from "../models/products";
 import shoppingCartReducer, { ActionsKind } from "../reducers/ShoppingCartReducer";
-import { useUserContext } from "./User";
+import { getUser, sendProductsToUserCart } from "../services/userFunctions";
+import { USER_INITIAL_VALUE, useUserContext } from "./User";
 export const initialState: ProductList = []
 export type ContextStates = {
     productsInCart: ProductList;
@@ -30,16 +31,14 @@ export const useShoppingContext = () => {
     }
     return context
 }
-const cartInLocalStorage = JSON.parse(localStorage.getItem('cart') || "[]")
 export function ShoppingCartProvider({ children }: any) {
-    const [productsInCart, dispatch] = React.useReducer(shoppingCartReducer, cartInLocalStorage)
+    const [productsInCart, dispatch] = React.useReducer(shoppingCartReducer, [])
     const [handlePurchaseProcess, setHandlePurchaseProcess] = React.useState<ContextStates["handlePurchaseProcess"]>({
         isError: false,
         errorMsg: "",
         paymentFinished: false,
         loading: false,
     })
-    console.log(handlePurchaseProcess)
     const Navigate = useNavigate()
     const { user, setUser } = useUserContext()
     let totalBill = 0
@@ -48,6 +47,7 @@ export function ShoppingCartProvider({ children }: any) {
             totalBill = totalBill + productsInCart[i].price * productsInCart[i].cantidad
         }
     }
+    console.log(productsInCart, 'carrito')
     const confirmPurchase = () => {
         if (user.currency < totalBill) {
             setHandlePurchaseProcess({
@@ -81,30 +81,49 @@ export function ShoppingCartProvider({ children }: any) {
                 })
             }, 2000);
             dispatch({ type: ActionsKind.CONFIRM_PAYMENT, payload: [] })
-            console.log('compra exitosa')
         }
     }
-    const addProductToCart = (newProduct: Product) => {
+    const addProductToCart = async (newProduct: Product) => {
         if (!user.isVerified) {
             Navigate(`/auth/user?request=signin`)
         } else {
             const isProductAlreadyAdded = productsInCart.findIndex((product: Product) => product.id == newProduct.id || product.name === newProduct.name)
             if (isProductAlreadyAdded === -1) {
                 dispatch({ type: ActionsKind.ADD_NEW_PRODUCT, payload: newProduct })
+            } else {
+                let incrementedStack = productsInCart[isProductAlreadyAdded].cantidad += 1
+                dispatch({ type: ActionsKind.INCREMENT_STACK, payload: incrementedStack })
             }
-            let incrementedStack = productsInCart[isProductAlreadyAdded].cantidad += 1
-            dispatch({ type: ActionsKind.INCREMENT_STACK, payload: incrementedStack })
         }
     }
+
     const removeProduct: ContextStates["removeProduct"] = (productByRemove: Product) => {
         dispatch({ type: ActionsKind.REMOVE_PRODUCT, payload: productByRemove })
     }
     React.useEffect(() => {
-        if (!user.isVerified) {
-            localStorage.setItem('cart', JSON.stringify([]))
-            setUser({ ...user, userCart: [] })
+        if (user.isVerified) {
+            const fetchUser = async () => {
+                dispatch({ type: ActionsKind.RECOVER_USER_CART, payload: user.userCart })
+                console.log('verified')
+            }
+            fetchUser()
+        } else {
+            dispatch({ type: ActionsKind.RECOVER_USER_CART, payload: [] })
+            localStorage.removeItem('user')
         }
-        localStorage.setItem('cart', JSON.stringify(productsInCart))
+
+    }, [user.isVerified])
+    React.useEffect(() => {
+        if (!user.isVerified) {
+            setUser(USER_INITIAL_VALUE)
+        } else {
+            setUser({
+                ...user,
+                userCart: productsInCart
+            })
+        }
+
+
     }, [user.isVerified, productsInCart])
 
     return (

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons"
+import { faCircleUser, faSignOut } from "@fortawesome/free-solid-svg-icons"
 import * as React from 'react'
 import { ShoppingCart } from './ShoppingCart'
 import { Link } from 'react-router-dom'
@@ -18,14 +18,24 @@ export const Navbar = () => {
             <div className='flex gap-4 items-center relative'>
                 <ShoppingCart />
 
-                <button onClick={() => setShowUserData(!showUserData)}><FontAwesomeIcon color='#ccc' fontSize={18} icon={faCircleUser} /></button>
-                <h4 className='font-bold text-slate-100'>${user.currency}</h4>
-                <div className={`flex flex-col bg-stone-800 transition-transform origin-top-right items-start p-2 w-48 gap-2 absolute top-10 right-0 scale-0 ${showUserData ? "scale-100" : ""}`}>
-                    <h2 className='text-slate-200 text-sm  capitalize'>name: {user.name}</h2>
-                    <h2 className='text-slate-200 text-sm  capitalize'>lastname: {user.lastName}</h2>
-                    <h4 className='text-slate-200 text-sm capitalize'>id: #{user.id}</h4>
+                {
+                    user.isVerified
+                        ?
+                        <button onClick={() => setUser({
+                            ...user,
+                            isVerified: false
+                        })}>
+                            <FontAwesomeIcon color='#ccc' fontSize={18} icon={faSignOut} />
 
-                </div>
+                        </button>
+                        :
+                        <Link to={'auth/user?request=signin'}>
+                            <FontAwesomeIcon color='#ccc' fontSize={18} icon={faCircleUser} />
+                        </Link>
+                }
+
+                <h4 className='font-bold text-slate-100'>${user.currency}</h4>
+
 
             </div>
 

@@ -1,5 +1,6 @@
 import { createContext, SetStateAction, useContext, useEffect, useState } from "react";
 import { User } from "../models/User";
+import { sendProductsToUserCart } from "../services/userFunctions";
 type ContextValues = {
     user: User,
     setUser: (user: User) => any
@@ -28,25 +29,13 @@ export default function UserProvider({ children }: any) {
     useEffect(() => {
         if (user.isVerified) {
             localStorage.setItem('user', JSON.stringify(user) || '{}')
+            sendProductsToUserCart(user.id, user.userCart)
+        } else {
+            setUser(USER_INITIAL_VALUE)
         }
     }, [user])
-    const getUser = async () => {
-        const response = await fetch('http://localhost:3000/users', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
 
-        return response.json()
-    }
-    useEffect(() => {
-        const getUserCartInLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]')
-        setUser({
-            ...user,
-            userCart: getUserCartInLocalStorage
-        })
-    }, [])
+
     return (
         <UserContext.Provider value={{ user: user as ContextValues["user"], setUser }}>
             {children}

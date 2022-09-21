@@ -3,47 +3,70 @@
     {
       "username": "esteban",
       "email": "estebanenis27@gmail.com",
-      "password": "12312313123",
-      "currency": 20000,
-      "id": 28.02435525518827,
+      "password": "123123123",
+      "currency": 0,
+      "id": 55.89154934068655,
       "isVerified": true,
-      "userCart": []
+      "userCart": [
+        {
+          "name": "shoes",
+          "id": 0.4824928977483831,
+          "cantidad": 1,
+          "price": 220
+        },
+        {
+          "name": "jacket",
+          "id": 0.16134791711632746,
+          "cantidad": 1,
+          "price": 250
+        },
+        {
+          "name": "bang",
+          "id": 0.2751026249747357,
+          "cantidad": 1,
+          "price": 270
+        },
+        {
+          "name": "stockings",
+          "id": 0.3593126781504814,
+          "cantidad": 1,
+          "price": 250
+        }
+      ]
     },
     {
-      "username": "rafael",
-      "email": "estebanenis27@gmail.com",
-      "password": "12121212",
-      "currency": 20000,
-      "id": 18.3165434154208,
-      "isVerified": true,
-      "userCart": []
-    },
-    {
-      "username": "coco",
-      "email": "estebanenis27@gmail.com",
-      "password": "12121212",
-      "currency": 20000,
-      "id": 0.7007047987840348,
-      "isVerified": true,
-      "userCart": []
-    },
-    {
-      "username": "raqueli",
+      "username": "admin",
       "email": "estebanenis27@gmail.com",
       "password": "123123123",
-      "currency": 20000,
-      "id": 54.16428140596388,
+      "currency": 0,
+      "id": 32.89358090799184,
       "isVerified": true,
-      "userCart": []
-    },
-    {
-      "username": "papa",
-      "email": "estebanenis27@gmail.com",
-      "password": "123123123",
-      "currency": 20000,
-      "id": 89.55808436835805,
-      "isVerified": true,
-      "userCart": []
+      "userCart": [
+        {
+          "name": "stockings",
+          "id": 0.08322575952385014,
+          "cantidad": 1,
+          "price": 250
+        },
+        {
+          "name": "bang",
+          "id": 0.8635274377779418,
+          "cantidad": 1,
+          "price": 270
+        },
+        {
+          "name": "jacket",
+          "id": 0.5545230881883427,
+          "cantidad": 1,
+          "price": 250
+        },
+        {
+          "name": "shoes",
+          "id": 0.48778296130049736,
+          "cantidad": 1,
+          "price": 220
+        }
+      ]
     }
   ]
 }

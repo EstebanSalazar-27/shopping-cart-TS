@@ -9,12 +9,12 @@ type PaymentModalProps = {
 }
 export const PaymentModal = ({ expandList, showConfirmModal, productsInCart, totalBill }: PaymentModalProps) => {
     const { confirmPurchase, handlePurchaseProcess } = useShoppingContext()
-    console.log(handlePurchaseProcess)
+
     return (
         <div className={`min-h-[600px] min-w-[600px]  bg-stone-900 absolute -left-[700px] transition-all shadow-lg   ${showConfirmModal ? "opacity-100 blur-0" : 'opacity-0 blur-lg'}`}>
             <div className='flex flex-col w-full '>
 
-                {handlePurchaseProcess.loading && <h2 className="font-bold bg-orange-400 text-slate-50 p-2 capitalize text-lg">payment is in process...</h2>}
+                {handlePurchaseProcess.loading && <h2 className={`font-bold bg-orange-400 text-slate-50 p-2 capitalize text-lg before:absolute`}>payment is in process...</h2>}
                 {handlePurchaseProcess.paymentFinished && <h2 className="font-bold bg-green-400 text-slate-50 p-2 capitalize text-lg">payment is done...</h2>}
 
                 <table>

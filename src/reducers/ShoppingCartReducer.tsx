@@ -26,7 +26,7 @@ export default function shoppingCartReducer(state: ReducerState, { payload, type
         case ActionsKind.REMOVE_PRODUCT:
             return ([...state.filter(product => product.id !== payload?.id)])
         case ActionsKind.RECOVER_USER_CART:
-            return ([...state])
+            return ([...payload])
         case ActionsKind.CONFIRM_PAYMENT:
             return ([...payload])
         default:
